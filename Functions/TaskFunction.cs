@@ -68,9 +68,13 @@ namespace MyList.Function.Functions
         }
 
         [Function("GetTasksByUserId")]
-        public async Task<HttpResponseData> GetTasksByUserId([HttpTrigger(AuthorizationLevel.Function, "get", Route = "tasks/user/{userId}")] HttpRequestData req, FunctionContext context, int userId)
+        public async Task<HttpResponseData> GetTasksByUserId([HttpTrigger(AuthorizationLevel.Function, "get", Route = "tasks/user")] HttpRequestData req, FunctionContext context)
         {
-            _logger.LogInformation($"Processing GetTasksByUserId request for UserId: {userId}");
+            _logger.LogInformation($"Processing GetTasksByUserId request");
+
+            var queryParams = System.Web.HttpUtility.ParseQueryString(req.Url.Query);
+            var userId = queryParams["userId"] == null ? 0 : int.Parse(queryParams["userId"]);
+
             if (userId <= 0)
             {
                 _logger.LogWarning("Invalid UserId.");
@@ -156,9 +160,12 @@ namespace MyList.Function.Functions
         }
 
         [Function("DeleteTask")]
-        public async Task<HttpResponseData> DeleteTask([HttpTrigger(AuthorizationLevel.Function, "delete", Route = "tasks/delete/{taskId}")] HttpRequestData req, int taskId)
+        public async Task<HttpResponseData> DeleteTask([HttpTrigger(AuthorizationLevel.Function, "delete", Route = "tasks/delete")] HttpRequestData req)
         {
-            _logger.LogInformation($"Processing DeleteTask request for TaskId: {taskId}");
+            _logger.LogInformation($"Processing DeleteTask request");
+            var queryParams = System.Web.HttpUtility.ParseQueryString(req.Url.Query);
+            var taskId = queryParams["taskId"] == null ? 0 : int.Parse(queryParams["taskId"]);
+
             if (taskId <= 0)
             {
                 _logger.LogWarning("Invalid TaskId.");
