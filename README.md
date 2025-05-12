@@ -2,9 +2,11 @@
 ![Azure Functions](https://img.shields.io/badge/Backend-Azure_Functions-brightgreen)
 ![Azure SQL](https://img.shields.io/badge/Database-Azure_SQL-blue)
 
-### Trip Finder – Backend (Azure Functions)
+### My List – Backend (Azure Functions)
 
-This repository contains the backend for the Trip Finder application, built using Azure Functions (Isolated .NET). It serves as a serverless API that provides transit stop suggestions, trip data, and GTFS-based schedule information to the frontend application.
+This repository contains the backend API for MyList, a cloud-based tasks management application. The backend is built using C# and Azure Functions to provide secure, serverless endpoints for managing user-authenticated task data.
+
+All backend services are deployed to Azure Function App, with automated CI/CD pipelines configured using GitHub Actions to ensure smooth and reliable deployments.
 
 ### Tech Stack
 
@@ -14,16 +16,16 @@ This repository contains the backend for the Trip Finder application, built usin
 - **Deployment:** GitHub Actions to Azure  
 
 ### Features
-- **Stop Suggestions API:** Returns autocomplete data for transit stop names  
-- **Trip Lookup API:** Processes trip search queries using GTFS data  
-- **Secure DB Access:** Uses Azure Managed Identity to connect to Azure SQL without storing credentials  
-- **CORS-enabled:** Configured for integration with a separate frontend (e.g., Azure Static Web App)  
+- **User Authentication:** Integrates with Azure Static Web Apps auth to secure endpoints and ensure each user can only access their own tasks  
+- **Task Management:** Create, retrieve, update (mark complete), and delete tasks via HTTP-triggered APIs 
+- **Serverless Hosting:** uns on Azure Functions for scalability, fast performance, and low maintenance overhead  
 
 ### Configuration
 Environment variables include:
 - **SqlConnectionString:** connection string to Azure SQL   
-
-### Deployment
+- **CORS-enabled:** Configured for integration with a separate frontend (e.g., Azure Static Web App)
+  
+### Deployment(CI/CD Pipeline)
 This backend is deployed using GitHub Actions and integrated with:
 - **Azure Function App (Isolated .NET)**  
 - **Azure SQL Database**  
